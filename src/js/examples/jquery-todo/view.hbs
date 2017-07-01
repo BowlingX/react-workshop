@@ -1,0 +1,24 @@
+<h1>My Travel-TODOs</h1>
+
+<p>A simple TODO Application</p>
+<button data-add-button>add todo</button>
+<button data-remove-done-button>remove done items</button>
+
+<ul>
+    {{#each todos}}
+        <li data-container>
+            <div>
+                {{#unless done}}
+                    <input tabindex="-1" data-checkbox type="checkbox"/>
+                    <input tabindex="1" data-input value="{{name}}"/>
+                {{else}}
+                    <input tabindex="-1" checked data-checkbox type="checkbox"/>
+                    <span style="text-decoration: line-through">{{name}}</span>
+                {{/unless}}
+            </div>
+        </li>
+    {{/each}}
+</ul>
+
+<button data-save>Save</button>
+
