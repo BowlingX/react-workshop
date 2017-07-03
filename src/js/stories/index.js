@@ -22,4 +22,3 @@ storiesOf('Button', module)
 ));
 
 
-storiesOf('Performance', module);
