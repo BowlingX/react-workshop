@@ -4,6 +4,11 @@ const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 module.exports = {
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
       { test: /\.hbs/, loader: "handlebars-loader" },
       {
         test: /\.scss$/,

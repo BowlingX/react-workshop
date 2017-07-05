@@ -12,12 +12,7 @@ setDefaults({
 
 setAddon(infoAddon);
 
-configure(function () {
-  //...
-}, module);
-function loadStories() {
-  require('../src/js/stories/index.js');
-  // You can require as many stories as you need.
-}
+const requireAll = (requireContext) => requireContext.keys().map(requireContext);
+const loadStories = () => requireAll(require.context('../src/components', true, /^.*\/__stories__\/.*\.js$/));
 
 configure(loadStories, module);

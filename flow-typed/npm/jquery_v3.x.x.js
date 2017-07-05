@@ -1,5 +1,5 @@
-// flow-typed signature: eb5311bc0eb1e20cb6df99c51c38472e
-// flow-typed version: 1d9edd4a72/jquery_v3.x.x/flow_>=v0.46.x
+// flow-typed signature: 585e079ba5b3e92a59ec339468297b47
+// flow-typed version: 11ef33ac4c/jquery_v3.x.x/flow_>=v0.48.x
 
 /* eslint-disable max-len, no-unused-vars, flowtype/no-weak-types */
 
@@ -2321,13 +2321,6 @@ declare class JQuery {
    * @param handler A handler function previous: anyly attached for the event(s), or the special value false. Takes handler with extra args that can be attached with on().
    */
   off(events: string, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
-  /**
-   * Remove an event handler.
-   *
-   * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
-   * @param handler A handler function previous: anyly attached for the event(s), or the special value false.
-   */
-  off(events: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
   /**
    * Remove an event handler.
    *

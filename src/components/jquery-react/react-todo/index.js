@@ -3,8 +3,8 @@
  */
 
 import React, { Component } from 'react';
-import Model from '../jquery-todo/model.js';
-import type { Todo } from '../jquery-todo/model.js';
+import Model from '../../../jquery/model.js';
+import type { Todo } from '../../../jquery/model.js';
 
 type State = {
   todos: Array<Todo>
@@ -14,6 +14,9 @@ type Props = {
   onSave?: (todos: Array<Todo>) => void
 }
 
+/**
+ * All-In-One TODO Application component
+ */
 export default class ReactTodo extends Component {
 
   model: Model;
@@ -33,21 +36,20 @@ export default class ReactTodo extends Component {
     };
   }
 
-  onRemoveTodo: (index: number) => (e: Event) => void = (index: number) => (e: Event) => {
+  onRemoveTodo = (index: number) => (e: Event) => {
     this.setState({
-      // $FlowFixMe: value unknown
       todos: this.model.remove(index)
     });
   };
 
-  onInputChange: (index: number) => (e: Event) => void = (index: number) => (e: Event) => {
+  onInputChange = (index: number) => (e: Event) => {
     this.setState({
       // $FlowFixMe: value unknown
       todos: this.model.update(index, e.target.value)
     });
   };
 
-  onAddTodo: (e: Event) => void = (e: Event) => {
+  onAddTodo = (e: Event) => {
     const value = window.prompt('What do you want TODO?', '');
     if (value) {
       this.setState({
@@ -56,13 +58,13 @@ export default class ReactTodo extends Component {
     }
   };
 
-  removeAllDone: (e: Event) => void = (e: Event) => {
+  removeAllDone = (e: Event) => {
     this.setState({
       todos: this.model.removeAllDone()
     });
   };
 
-  onSave: (e: Event) => void = (e: Event) => {
+  onSave = (e: Event) => {
     if (this.props.onSave) {
       this.props.onSave(this.state.todos);
     }
@@ -82,7 +84,7 @@ export default class ReactTodo extends Component {
     const { todos } = this.state;
     return (
       <div>
-        <h1>My Travel-TODOs</h1>
+        <h1>My Travel Bucket-List</h1>
         <p>A simple TODO Application</p>
         <button onClick={this.onAddTodo}>add TODO</button>
         <button onClick={this.removeAllDone}>remove done items</button>

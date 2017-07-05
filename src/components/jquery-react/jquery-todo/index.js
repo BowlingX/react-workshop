@@ -4,13 +4,16 @@
 
 import React from 'react';
 import $ from 'jquery';
-import './app.js';
+import '../../../jquery/app.js';
 
 type Props = {
-  onSave: (Object) => void
+  onSave: Function
 }
 
-export default class JQueryTodoWrapper extends React.Component {
+/**
+ * React-Component that renders our jQuery Widget
+ */
+export default class JQueryTodo extends React.Component {
 
   element: HTMLElement;
 

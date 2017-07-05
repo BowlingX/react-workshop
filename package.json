@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "flow check",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
     "jquery": "^3.2.1",
     "jquery-ui": "^1.12.1",
     "react": "^15.6.1",
+    "react-addons-shallow-compare": "^15.6.0",
     "react-dom": "^15.6.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2"
@@ -38,6 +41,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-proto-to-assign": "^6.23.0",
     "flow-bin": "^0.49.1",
-    "flow-status-webpack-plugin": "^0.1.7"
+    "flow-status-webpack-plugin": "^0.1.7",
+    "react-styleguidist": "^5.5.2"
   }
 }
