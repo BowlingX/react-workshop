@@ -4,7 +4,7 @@
 
 import React, { Component, Children } from 'react';
 import { createStore, combineReducers, compose } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer, Field, reduxForm, getFormValues } from 'redux-form';
 import { Provider, connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import connectQueryToProps from './lib/ConnectQueryToProps';
@@ -14,14 +14,7 @@ const history = createHistory();
 
 const store = createStore(
   combineReducers({
-    form: formReducer,
-    checked: (state = false, action) => {
-      switch (action.type) {
-        case 'SET_CHECKED':
-          return action.value;
-      }
-      return state;
-    }
+    form: formReducer
   }),
   {},
   compose(
@@ -35,43 +28,46 @@ type Props = {
 };
 // $FlowFixMe: ignore
 let SimpleComponent = (props: Props) => {
+  const { handleSubmit } = props
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <p>Please check</p>
-      <input type="checkbox" onChange={props.onChange} checked={props.checked}/>
-    </div>
+      <Field name="checked" component="input" type="checkbox" />
+      <Field name="text" component="input" type="text"/>
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 
-SimpleComponent = connectQueryToProps('s', {
-  checked: {
-    toQueryString: (value: boolean) => value ? 1 : 0,
-    fromQueryString: (value: any, props) => {
-      const nextValue = value === '1';
-      props.change(nextValue);
-      return nextValue;
-    },
-    fromHistory: (value: boolean, props) => {
-      props.change(value);
-    }
+const parameter = (name) => ({
+  toQueryString: (value: boolean) => JSON.stringify(value),
+  fromQueryString: (value: any, props) => {
+    const nextValue = JSON.parse(value);
+    props.change(name, nextValue);
+    return nextValue;
+  },
+  fromHistory: (value: boolean, props) => {
+    props.change(name, value);
   }
+})
+
+SimpleComponent = connectQueryToProps('s', {
+  [`p.checked`]: parameter('checked'),
+  [`p.text`]: parameter('text')
 })(SimpleComponent);
 
-const stateToProps = (state) => ({
-  checked: state.checked
-});
+SimpleComponent = reduxForm({
+  // a unique name for the form
+  form: 'contact'
+})(SimpleComponent)
 
-const dispatchToProps = (dispatch) => ({
-  change: (value: boolean) => {
-    dispatch({ type: 'SET_CHECKED', value });
-  },
-  onChange: (e: Event) => {
-    // $FlowFixMe: ignore
-    dispatch({ type: 'SET_CHECKED', value: e.target.checked });
-  }
-});
-
-SimpleComponent = connect(stateToProps, dispatchToProps)(SimpleComponent);
+SimpleComponent = connect((state) => {
+  const formValues = getFormValues('contact')(state);
+  return {
+    [`p.checked`]: formValues ? formValues.checked || false : false,
+    [`p.text`]: formValues ? formValues.text || '' : ''
+  };
+})(SimpleComponent);
 
 const ConnectProps = () => {
   return (

@@ -5,6 +5,7 @@
 import React, { Component, Children } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
+import { createSelector } from 'reselect'
 
 type QueryContainerProps = {
   history: Object,
@@ -17,13 +18,15 @@ export default class QueryContainer extends Component {
 
   components: Object = {};
 
-  initialParsedQuery: Object;
+  initialParsedQuery: () => Object;
 
   isTransitioning: boolean = false;
 
   constructor(props: QueryContainerProps) {
     super(props);
-    this.initialParsedQuery = queryString.parse(global.location.search);
+    const searchSelector = () => global.location.search;
+    this.initialParsedQuery =
+    createSelector(searchSelector, search => queryString.parse(search));
   }
 
   componentDidMount() {
@@ -75,8 +78,11 @@ export default class QueryContainer extends Component {
                 props: initial.props,
                 options: initial.options,
                 state: { ...initial.state, [key]: value },
-                serialized: (!options[key].skip || !options[key].skip(value)) ?
-                  { ...initial.serialized, [`${namespace}.${key}`]: options[key].toQueryString(value) } : {}
+                serialized: !(options[key].skip && options[key].skip(value)) ?
+                  {
+                    ...initial.serialized,
+                    [`${namespace}.${key}`]: options[key].toQueryString(value)
+                  } : initial.serialized
               };
             }
             return initial;
@@ -99,7 +105,7 @@ export default class QueryContainer extends Component {
           }
           const initialState = {};
           const state = Object.keys(options).reduce((initial, key) => {
-            const initialQueryValue = this.initialParsedQuery[`${namespace}.${key}`];
+            const initialQueryValue = this.initialParsedQuery()[`${namespace}.${key}`];
             if (props[key] !== undefined) {
               initialState[key] = props[key];
             }

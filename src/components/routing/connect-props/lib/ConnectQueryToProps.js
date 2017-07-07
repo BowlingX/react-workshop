@@ -7,6 +7,12 @@ import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
 const connectQueryToProps = (namespace: string, options: Object) => (InnerComponent: ReactClass<any> | Function) => {
+
+  const getOptionsFromProps = (props:Object) => {
+    return Object.keys(options).reduce(
+      (next, prop) => ({...next, [prop]: props[prop]}), {}
+    );
+  }
   return class extends Component {
 
     static contextTypes = {
@@ -26,14 +32,20 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
       return !shallowEqual(this.state, nextState);
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps:Object) {
       if (this.context.queryManager.isTransitioning()) {
         return;
       }
-      this.context.queryManager.pushChanges(namespace, this.props);
+      // check if the parameters actually changed:
+      if(!shallowEqual(
+        getOptionsFromProps(prevProps),
+        getOptionsFromProps(this.props))
+      ) {
+        this.context.queryManager.pushChanges(namespace, this.props);
+      }
     }
 
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps(props:Object) {
       this.setState(props);
     }
 
