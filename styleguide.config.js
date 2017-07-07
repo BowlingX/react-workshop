@@ -10,6 +10,10 @@ module.exports = {
     {
       name: 'Immutable Data-Structures',
       components: 'src/components/immutable/**/*.js'
+    },
+    {
+      name: 'Routing',
+      components: 'src/components/routing/**/index.js'
     }
   ]
 };
