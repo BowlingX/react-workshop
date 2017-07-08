@@ -42,7 +42,7 @@ export default class QueryContainer extends Component {
         if (this.components[key]) {
           Object.keys(location.state.componentState[key]).map(propKey => {
             const oldValue = location.state.componentState[key][propKey];
-            if(oldValue !== this.components[key].state[propKey]) {
+            if(!oldValue || oldValue !== this.components[key].state[propKey]) {
               this.components[key].options[propKey].fromHistory(
                 oldValue, this.components[key].props);
                 // mutate current state with old value,
