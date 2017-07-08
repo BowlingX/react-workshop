@@ -12,7 +12,8 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
     return Object.keys(options).reduce(
       (next, prop) => ({...next, [prop]: props[prop]}), {}
     );
-  }
+  };
+
   return class extends Component {
 
     static contextTypes = {

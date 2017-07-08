@@ -3,6 +3,11 @@ module.exports = {
   webpackConfig: require('./.storybook/webpack.config.js'),
   sections: [
     {
+      name: 'State & Props',
+      components: 'src/components/state/*.js',
+      content: 'src/components/state/Readme.md'
+    },
+    {
       name: 'jQuery <-> React',
       content: 'src/components/jquery-react/Readme.md',
       components: 'src/components/jquery-react/**/*.js'

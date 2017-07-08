@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import type { Todo } from '../../../../jquery/model.js';
+import randomColor from '../../../../lib/color';
 
 type Props = {
   /** the TODO item */
@@ -30,11 +31,6 @@ export default class SingleTodo extends Component {
     return shallowCompare(this, nextProps, nextState);
   }
 
-  static randomColor() {
-    // 16777215 == ffffff in decimal
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  }
-
   render() {
     const { todo, onRemoveTodo, onInputChange } = this.props;
     return (
@@ -44,7 +40,7 @@ export default class SingleTodo extends Component {
         {todo.done && <span style={{ textDecoration: 'line-through' }}>{todo.name}</span>}
         <span style={{
           border: '1px solid black',
-          backgroundColor: SingleTodo.randomColor(),
+          backgroundColor: randomColor(),
           marginLeft: '5px',
           display: 'block',
           width: '10px',
