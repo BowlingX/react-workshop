@@ -32,16 +32,16 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
       return !shallowEqual(this.state, nextState);
     }
 
-    componentDidUpdate(prevProps:Object) {
+    componentDidUpdate(prevProps:Object, prevState:Object) {
       if (this.context.queryManager.isTransitioning()) {
         return;
       }
       // check if the parameters actually changed:
       if(!shallowEqual(
-        getOptionsFromProps(prevProps),
-        getOptionsFromProps(this.props))
+        getOptionsFromProps(prevState),
+        getOptionsFromProps(this.state))
       ) {
-        this.context.queryManager.pushChanges(namespace, this.props);
+        this.context.queryManager.pushChanges(namespace, this.state);
       }
     }
 

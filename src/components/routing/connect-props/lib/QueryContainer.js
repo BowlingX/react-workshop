@@ -6,6 +6,7 @@ import React, { Component, Children } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { createSelector } from 'reselect'
+import createCachedSelector from 're-reselect';
 
 type QueryContainerProps = {
   history: Object,
@@ -40,8 +41,14 @@ export default class QueryContainer extends Component {
       Object.keys(location.state.componentState).map(key => {
         if (this.components[key]) {
           Object.keys(location.state.componentState[key]).map(propKey => {
-            this.components[key].options[propKey].fromHistory(
-              location.state.componentState[key][propKey], this.components[key].props);
+            const oldValue = location.state.componentState[key][propKey];
+            if(oldValue !== this.components[key].state[propKey]) {
+              this.components[key].options[propKey].fromHistory(
+                oldValue, this.components[key].props);
+                // mutate current state with old value,
+                // this way we can only call fromHistory where required
+                this.components[key].state[propKey] = oldValue;
+              }
           });
         }
       });
@@ -71,38 +78,41 @@ export default class QueryContainer extends Component {
       queryManager: {
         pushChanges: (namespace: string, props: Object) => {
           const options = this.components[namespace].options;
-          this.components[namespace] = Object.keys(options).reduce((initial, key) => {
+          const optionsSelector = this.components[namespace].optionsSelector;
+          const next = Object.keys(options).reduce((initial, key) => {
             const value = props[key];
             if (value !== undefined) {
+              const nextValue = optionsSelector({key, value}, key);
               return {
-                props: initial.props,
-                options: initial.options,
                 state: { ...initial.state, [key]: value },
-                serialized: !(options[key].skip && options[key].skip(value)) ?
-                  {
+                serialized: {
                     ...initial.serialized,
-                    [`${namespace}.${key}`]: options[key].toQueryString(value)
-                  } : initial.serialized
+                    ...nextValue
+                  }
               };
             }
             return initial;
           }, {
-            props: this.components[namespace].props,
-            options: this.components[namespace].options,
             state: {},
             serialized: {}
           });
+          this.components[namespace] = {...this.components[namespace], ...next};
           this.props.history.push(
             { pathname: location.pathname, search: this.calculateQueryString() },
             { componentState: this.currentComponentState() }
           );
         },
         register: (namespace: string, options: Object, props: Object) => {
-          if (!this.components[namespace]) {
-            this.components[namespace] = {};
-          } else {
+          if (this.components[namespace]) {
             throw new Error(`connectQueryToProps: Namespace '${namespace}' already registered.`);
           }
+          const keySelector = (state) => state.key;
+          const valueSelector = (state) => state.value;
+          const optionsSelector = createCachedSelector(keySelector, valueSelector, (key, value) => {
+              return !(options[key].skip && options[key].skip(value)) ? {
+                [`${namespace}.${key}`]: options[key].toQueryString(value)
+              } : {}
+            })((state, key) => key);
           const initialState = {};
           const state = Object.keys(options).reduce((initial, key) => {
             const initialQueryValue = this.initialParsedQuery()[`${namespace}.${key}`];
@@ -117,10 +127,11 @@ export default class QueryContainer extends Component {
             return initial;
           }, props);
 
-          this.components[namespace] = { options, props, state: initialState };
+          this.components[namespace] = { options, props, optionsSelector, state: initialState };
           return state;
         },
         unregister: (namespace:string) => {
+          this.components[namespace].optionsSelector.clearCache();
           delete this.components[namespace];
         },
         isTransitioning: () => this.isTransitioning

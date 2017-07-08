@@ -24,7 +24,8 @@ const store = createStore(
 
 type Props = {
   checked: boolean,
-  onChange: () => void
+  onChange: () => void,
+  handleSubmit: () => void
 };
 // $FlowFixMe: ignore
 let SimpleComponent = (props: Props) => {
@@ -40,7 +41,9 @@ let SimpleComponent = (props: Props) => {
 };
 
 const parameter = (name) => ({
-  toQueryString: (value: boolean) => JSON.stringify(value),
+  toQueryString: (value: any) => {
+    return JSON.stringify(value)
+  },
   fromQueryString: (value: any, props) => {
     const nextValue = JSON.parse(value);
     props.change(name, nextValue);
