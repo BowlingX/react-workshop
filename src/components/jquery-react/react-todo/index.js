@@ -72,7 +72,7 @@ export default class ReactTodo extends Component {
 
   renderTodo(todo: Todo, key: number) {
     return (
-      <li key={key}>
+      <li key={todo.id}>
         <input tabIndex="-1" onChange={this.onRemoveTodo(key)} type="checkbox" value={todo.done}/>
         {!todo.done && <input tabIndex="1" onChange={this.onInputChange(key)} type="text" value={todo.name}/>}
         {todo.done && <span style={{ textDecoration: 'line-through' }}>{todo.name}</span>}

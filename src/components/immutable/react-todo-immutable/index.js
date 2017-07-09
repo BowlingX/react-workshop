@@ -93,12 +93,12 @@ export default class ReactImmutableTodo extends Component {
     }
   };
 
-  renderTodo(todo: Todo, key: number) {
+  renderTodo(todo: Todo) {
     return (
       <SingleTodo
         forceUpdate={this.props.forceUpdate}
         todo={todo}
-        key={key}
+        key={todo.id}
         onRemoveTodo={this.onRemoveTodo}
         onInputChange={this.onInputChange}
       />
@@ -114,8 +114,8 @@ export default class ReactImmutableTodo extends Component {
         <button onClick={this.onAddTodo}>add TODO</button>
         <button onClick={this.removeAllDone}>remove done items</button>
         <ul>
-          {todos.map(todo => this.renderTodo(todo, todos.indexOf(todo)))}
-          {todos.length === 0 && <li>Nothing TODO :)</li>}
+          {todos.map(todo => this.renderTodo(todo))}
+          {todos.length === 0 && <li key="nothing">Nothing TODO :)</li>}
         </ul>
         <button onClick={this.onSave}>save</button>
       </div>
