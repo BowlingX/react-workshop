@@ -73,6 +73,7 @@ export default class ReactTodo extends Component {
   renderTodo(todo: Todo, key: number) {
     return (
       <li key={todo.id}>
+        {/* this here will create a new function on each render, better separate the component or use an identifier on the target*/}
         <input tabIndex="-1" onChange={this.onRemoveTodo(key)} type="checkbox" value={todo.done}/>
         {!todo.done && <input tabIndex="1" onChange={this.onInputChange(key)} type="text" value={todo.name}/>}
         {todo.done && <span style={{ textDecoration: 'line-through' }}>{todo.name}</span>}

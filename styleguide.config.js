@@ -8,7 +8,7 @@ module.exports = {
       content: 'src/components/state/Readme.md'
     },
     {
-      name: 'Styling / CSS Modules',
+      name: 'CSS Modules',
       components: 'src/components/styling/css-modules/**/*.js',
       content: 'src/components/styling/css-modules/Readme.md'
     },
