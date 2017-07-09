@@ -13,9 +13,9 @@ type Props = {
   /** simulate always render on changes */
     forceUpdate?: boolean,
   /** callback when the checkbox is clicked */
-    onRemoveTodo: (todo: Todo) => (e: Event) => void,
+    onRemoveTodo: (todo: Todo) => void,
   /** callback when the text changes */
-    onInputChange: (todo: Todo) => (e: Event) => void
+    onInputChange: (todo: Todo, value:string) => void
 }
 
 export default class SingleTodo extends Component {
@@ -31,12 +31,22 @@ export default class SingleTodo extends Component {
     return shallowCompare(this, nextProps, nextState);
   }
 
+  onChange = (e:Event) => {
+    // $FlowFixMe: unkown
+    this.props.onInputChange(this.props.todo, e.target.value);
+  }
+
+  onRemove = () => {
+    this.props.onRemoveTodo(this.props.todo);
+  }
+
   render() {
     const { todo, onRemoveTodo, onInputChange } = this.props;
     return (
       <li style={{ display: "flex", alignItems: 'center' }}>
-        <input tabIndex="-1" onChange={onRemoveTodo(todo)} type="checkbox" value={todo.done}/>
-        {!todo.done && <input tabIndex="1" onChange={onInputChange(todo)} type="text" value={todo.name}/>}
+      { /* important: do not create new function with bind for listeners, they will be recreated on each render*/ }
+        <input tabIndex="-1" onChange={this.onRemove} type="checkbox" value={todo.done}/>
+        {!todo.done && <input tabIndex="1" onChange={this.onChange} type="text" value={todo.name}/>}
         {todo.done && <span style={{ textDecoration: 'line-through' }}>{todo.name}</span>}
         <span style={{
           border: '1px solid black',

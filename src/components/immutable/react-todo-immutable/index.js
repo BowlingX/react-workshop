@@ -59,16 +59,15 @@ export default class ReactImmutableTodo extends Component {
     this.setState({ todos: this.model.todos });
   }
 
-  onRemoveTodo = (todo: Todo) => (e: Event) => {
+  onRemoveTodo = (todo: Todo) => {
     this.setState({
       todos: this.model.remove(this.model.todos.indexOf(todo))
     });
   };
 
-  onInputChange = (todo: Todo) => (e: Event) => {
+  onInputChange = (todo: Todo, value:string) => {
     this.setState({
-      // $FlowFixMe: value unknown
-      todos: this.model.update(this.model.todos.indexOf(todo), e.target.value)
+      todos: this.model.update(this.model.todos.indexOf(todo), value)
     });
   };
 

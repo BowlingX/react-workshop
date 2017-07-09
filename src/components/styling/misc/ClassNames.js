@@ -29,7 +29,6 @@ export default class ClassNames extends PureComponent {
   };
 
   onTransitionEnd = (e:Event) => {
-    // $FlowFixMe:
     if(e.propertyName === 'transform') {
       this.setState({ isTransitioning: false});
     }
