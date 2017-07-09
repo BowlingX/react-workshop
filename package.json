@@ -50,6 +50,7 @@
     "babel-plugin-transform-proto-to-assign": "^6.23.0",
     "flow-bin": "^0.49.1",
     "flow-status-webpack-plugin": "^0.1.7",
+    "node-sass": "^4.5.3",
     "react-styleguidist": "^5.5.2"
   }
 }

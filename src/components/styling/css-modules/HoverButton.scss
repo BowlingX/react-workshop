@@ -1,0 +1,7 @@
+:local(.hoverBtn) {
+  composes: btn from './Button.scss';
+  &:hover {
+    background: blue;
+    color: #fff;
+  }
+}

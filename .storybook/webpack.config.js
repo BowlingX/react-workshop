@@ -12,7 +12,11 @@ module.exports = {
       { test: /\.hbs/, loader: "handlebars-loader" },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
+        loaders: [
+          "style-loader",
+          "css-loader?localIdentName=[name]__[local]_[hash:base64]",
+          "sass-loader"
+        ],
         include: path.resolve(__dirname, '../')
       }
     ]

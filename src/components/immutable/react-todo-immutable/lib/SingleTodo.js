@@ -10,7 +10,7 @@ import randomColor from '../../../../lib/color';
 type Props = {
   /** the TODO item */
     todo: Todo,
-  /** simulate Component */
+  /** simulate always render on changes */
     forceUpdate?: boolean,
   /** callback when the checkbox is clicked */
     onRemoveTodo: (todo: Todo) => (e: Event) => void,

@@ -5,8 +5,10 @@
 import React from 'react';
 
 type Props = {
+  /** the text */
   text: string
 }
+
 
 const NoState = (props: Props) => {
   const { text } = props;

@@ -4,8 +4,13 @@ module.exports = {
   sections: [
     {
       name: 'State & Props',
-      components: 'src/components/state/*.js',
+      components: 'src/components/state/**/*.js',
       content: 'src/components/state/Readme.md'
+    },
+    {
+      name: 'Styling',
+      components: 'src/components/styling/**/*.js',
+      content: 'src/components/styling/Readme.md'
     },
     {
       name: 'jQuery <-> React',
