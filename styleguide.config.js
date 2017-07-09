@@ -8,9 +8,13 @@ module.exports = {
       content: 'src/components/state/Readme.md'
     },
     {
+      name: 'Styling / CSS Modules',
+      components: 'src/components/styling/css-modules/**/*.js',
+      content: 'src/components/styling/css-modules/Readme.md'
+    },
+    {
       name: 'Styling',
-      components: 'src/components/styling/**/*.js',
-      content: 'src/components/styling/Readme.md'
+      components: 'src/components/styling/misc/**/*.js',
     },
     {
       name: 'jQuery <-> React',
