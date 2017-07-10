@@ -1,7 +1,7 @@
 This example demonstrates the use of [classnames](https://github.com/JedWatson/classnames)
 and CSS animations.
 
-    <ClassNames/>
+    <ClassNames enableBadTransition={false}/>
 
 ## More about Animation
 
@@ -14,4 +14,4 @@ A list of some react libraries I found worth checking out:
 - https://github.com/jondot/react-flight
 - https://sghall.github.io/resonance/#/documentation/node-group
 
-[Performance and CSS Animations](https://medium.com/outsystems-experts/how-to-achieve-60-fps-animations-with-css3-db7b98610108).
+Try to archive 60 FPS: [Performance and CSS Animations](https://medium.com/outsystems-experts/how-to-achieve-60-fps-animations-with-css3-db7b98610108).

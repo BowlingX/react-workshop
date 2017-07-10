@@ -12,7 +12,13 @@ type State = {
   catched:number
 }
 
+type Props = {
+  enableBadTransition: boolean
+}
+
 export default class ClassNames extends PureComponent {
+
+  props:Props;
 
   state: State = {
     shouldAnimate: false,
@@ -29,10 +35,11 @@ export default class ClassNames extends PureComponent {
   };
 
   onTransitionEnd = (e:Event) => {
-    if(e.propertyName === 'transform') {
+    // see https://developer.mozilla.org/de/docs/Web/Events/transitionend
+    if(e.propertyName === 'transform' || e.propertyName === 'left') {
       this.setState({ isTransitioning: false});
     }
-  }
+  };
 
   render() {
     const { shouldAnimate, isTransitioning, catched } = this.state;
@@ -44,7 +51,8 @@ export default class ClassNames extends PureComponent {
         className={
           classNames(AnimatedButton, {
             animate: shouldAnimate,
-            isTransitioning
+            isTransitioning,
+            badTransition: this.props.enableBadTransition
           })
         }
       >

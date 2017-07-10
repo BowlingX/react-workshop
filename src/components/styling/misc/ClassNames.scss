@@ -2,13 +2,26 @@
   background: black;
   color: #fff;
   transition: 1s transform cubic-bezier(0.915, -0.285, 0.110, 1.650), 1s background ease, 1s color ease;
+
   width: 300px;
   text-align:center;
+
+  &.badTransition {
+    transition: 1s left cubic-bezier(0.915, -0.285, 0.110, 1.650), 1s background ease, 1s color ease;
+    left:0;
+    position:relative;
+  }
+
   &.isTransitioning {
     background: yellow;
     color: black;
   }
   &.animate {
+    &:not(.badTransition) {
       transform: translate3d(100%, 0,0);
+    }
+    &.badTransition {
+      left: 200px;
+    }
   }
 }
