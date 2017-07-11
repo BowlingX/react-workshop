@@ -25,7 +25,7 @@ export default class QueryContainer extends Component {
 
   constructor(props: QueryContainerProps) {
     super(props);
-    const searchSelector = () => global.location.search;
+    const searchSelector = () => props.history.location.search;
     this.initialParsedQuery =
     createSelector(searchSelector, search => queryString.parse(search));
   }
