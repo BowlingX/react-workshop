@@ -1,6 +1,5 @@
-
 {
-  "presets": ["react"],
+  "presets": ["react", "babel-preset-es2015"],
   "plugins": [
     "syntax-dynamic-import",
     "syntax-async-functions",

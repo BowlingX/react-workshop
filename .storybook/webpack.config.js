@@ -9,7 +9,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
-      { test: /\.hbs/, loader: "handlebars-loader" },
+      {test: /\.hbs/, loader: "handlebars-loader"},
       {
         test: /\.scss$/,
         loaders: [
@@ -27,5 +27,11 @@ module.exports = {
       onSuccess: console.log,
       onError: console.error
     })
-  ]
+  ],
+  externals: {
+    cheerio: 'window',
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+  },
 };

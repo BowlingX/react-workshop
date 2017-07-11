@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "lint": "flow check",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "styleguidist server",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "test": "karma start --single-run --ci --test",
+    "tdd": "karma start --auto-watch --test"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "css-loader": "^0.28.4",
+    "fbjs": "^0.8.12",
     "handlebars": "^4.0.10",
     "handlebars-loader": "^1.5.0",
     "history": "^4.6.3",
@@ -49,9 +51,21 @@
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-proto-to-assign": "^6.23.0",
+    "enzyme": "^2.9.1",
     "flow-bin": "^0.49.1",
     "flow-status-webpack-plugin": "^0.1.7",
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-ajax": "^0.1.13",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-spec-reporter": "0.0.31",
+    "karma-webpack": "^2.0.4",
     "node-sass": "^4.5.3",
-    "react-styleguidist": "^5.5.2"
+    "react-addons-test-utils": "^15.6.0",
+    "react-styleguidist": "^5.5.2",
+    "react-test-renderer": "^15.6.1"
   }
 }

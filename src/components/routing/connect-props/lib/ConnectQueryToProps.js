@@ -2,17 +2,17 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
-const connectQueryToProps = (namespace: string, options: Object) => (InnerComponent: ReactClass<any> | Function) => {
+const getOptionsFromProps = (options: Object, props: Object) => {
+  return Object.keys(options).reduce(
+    (next, prop) => ({...next, [prop]: props[prop]}), {}
+  );
+};
 
-  const getOptionsFromProps = (props:Object) => {
-    return Object.keys(options).reduce(
-      (next, prop) => ({...next, [prop]: props[prop]}), {}
-    );
-  };
+const connectQueryToProps = (namespace: string, options: Object) => (InnerComponent: ReactClass<any> | Function) => {
 
   return class extends Component {
 
@@ -33,20 +33,20 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
       return !shallowEqual(this.state, nextState);
     }
 
-    componentDidUpdate(prevProps:Object, prevState:Object) {
+    componentDidUpdate(prevProps: Object, prevState: Object) {
       if (this.context.queryManager.isTransitioning()) {
         return;
       }
       // check if the parameters actually changed:
-      if(!shallowEqual(
-        getOptionsFromProps(prevState),
-        getOptionsFromProps(this.state))
+      if (!shallowEqual(
+          getOptionsFromProps(options, prevState),
+          getOptionsFromProps(options, this.state))
       ) {
         this.context.queryManager.pushChanges(namespace, this.state);
       }
     }
 
-    componentWillReceiveProps(props:Object) {
+    componentWillReceiveProps(props: Object) {
       this.setState(props);
     }
 
