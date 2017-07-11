@@ -6,6 +6,7 @@
 
 [libs]
 flow-typed
+.flow/lib
 
 [options]
 module.name_mapper='^\(actions\|components\|containers\|modules\|validators\|helpers\|util\|pages\|options\|selectors\)\(\/?.*\)$' -> '<PROJECT_ROOT>/src/AppBundle/Resources/js/\1/\2'
