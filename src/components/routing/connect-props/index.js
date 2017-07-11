@@ -2,7 +2,7 @@
  * @flow
  */
 
-import React, { Component, Children } from 'react';
+import React from 'react';
 import { createStore, combineReducers, compose } from 'redux';
 import { reducer as formReducer, Field, reduxForm, getFormValues } from 'redux-form';
 import { Provider, connect } from 'react-redux';
@@ -29,7 +29,7 @@ type Props = {
 };
 // $FlowFixMe: ignore
 let SimpleComponent = (props: Props) => {
-  const { handleSubmit } = props
+  const { handleSubmit } = props;
   return (
     <form onSubmit={handleSubmit}>
       <p>Please check</p>
@@ -41,18 +41,21 @@ let SimpleComponent = (props: Props) => {
 };
 
 const parameter = (name) => ({
+  // called during serialization
   toQueryString: (value: any) => {
     return JSON.stringify(value)
   },
+  // called initially before render
   fromQueryString: (value: any, props) => {
     const nextValue = JSON.parse(value);
     props.change(name, nextValue);
     return nextValue;
   },
+  // called if navigate and a certain state should be restored
   fromHistory: (value: boolean, props) => {
     props.change(name, value);
   }
-})
+});
 
 SimpleComponent = connectQueryToProps('s', {
   [`p.checked`]: parameter('checked'),
@@ -62,7 +65,7 @@ SimpleComponent = connectQueryToProps('s', {
 SimpleComponent = reduxForm({
   // a unique name for the form
   form: 'contact'
-})(SimpleComponent)
+})(SimpleComponent);
 
 SimpleComponent = connect((state) => {
   const formValues = getFormValues('contact')(state);
