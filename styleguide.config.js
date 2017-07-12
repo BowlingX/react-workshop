@@ -1,5 +1,5 @@
 module.exports = {
-  ignore: ['**/__stories__/**', '**/__tests__/**', '**/*.test.js', '**/*.test.jsx', '**/*.spec.js', '**/*.spec.jsx'],
+  ignore: ['**/__stories__/**', '**/reducer/**', '**/container/**', '**/__tests__/**', '**/*.test.js', '**/*.test.jsx', '**/*.spec.js', '**/*.spec.jsx'],
   webpackConfig: require('./.storybook/webpack.config.js'),
   sections: [
     {
@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       name: 'Styling',
-      components: 'src/components/styling/misc/**/*.js',
+      components: 'src/components/styling/misc/**/*.js'
     },
     {
       name: 'jQuery <-> React',
@@ -24,6 +24,11 @@ module.exports = {
     {
       name: 'Immutable Data-Structures',
       components: 'src/components/immutable/**/*.js'
+    },
+    {
+      name: 'Redux',
+      components: 'src/components/redux/**/*.js',
+      content: 'src/components/redux/Readme.md'
     },
     {
       name: 'Routing',

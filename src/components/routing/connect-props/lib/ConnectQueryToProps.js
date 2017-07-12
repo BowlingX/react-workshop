@@ -1,21 +1,20 @@
 /**
  * @flow
  */
+/* global ReactClass */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
 const getOptionsFromProps = (options: Object, props: Object) => {
   return Object.keys(options).reduce(
-    (next, prop) => ({...next, [prop]: props[prop]}), {}
+    (next, prop) => ({ ...next, [prop]: props[prop] }), {}
   );
 };
 
 const connectQueryToProps = (namespace: string, options: Object) => (InnerComponent: ReactClass<any> | Function) => {
-
   return class extends Component {
-
     static contextTypes = {
       queryManager: PropTypes.object
     };
@@ -26,7 +25,7 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
 
     componentWillMount() {
       const state = this.context.queryManager.register(namespace, options, this.props);
-      this.setState(state)
+      this.setState(state);
     }
 
     shouldComponentUpdate(nextProps: Object, nextState: Object) {
@@ -39,8 +38,8 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
       }
       // check if the parameters actually changed:
       if (!shallowEqual(
-          getOptionsFromProps(options, prevState),
-          getOptionsFromProps(options, this.state))
+        getOptionsFromProps(options, prevState),
+        getOptionsFromProps(options, this.state))
       ) {
         this.context.queryManager.pushChanges(namespace, this.state);
       }
@@ -57,9 +56,9 @@ const connectQueryToProps = (namespace: string, options: Object) => (InnerCompon
     }
 
     render() {
-      return <InnerComponent {...this.state}/>
+      return <InnerComponent {...this.state} />;
     }
-  }
+  };
 };
 
 export default connectQueryToProps;

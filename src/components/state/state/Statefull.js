@@ -15,7 +15,6 @@ type Props = {
 }
 
 export default class Statefull extends Component {
-
   state: State;
 
   props:Props;

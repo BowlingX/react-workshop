@@ -4,24 +4,24 @@
 
 import React, { Component } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import Model, { MutableModel } from '../../../jquery/model.js';
-import type { Todo } from '../../../jquery/model.js';
+import Model, { MutableModel } from '../../../jquery/model';
+import type { Todo } from '../../../jquery/model';
 import SingleTodo from './lib/SingleTodo';
+
 type State = {
   todos: Array<Todo>
 };
 
 type Props = {
   onSave: (todos: Array<Todo>) => void,
-  useMutableModel?: boolean,
-  forceUpdate?: boolean
+  useMutableModel: boolean,
+  forceUpdate: boolean
 }
 
 /**
  * An optimized Immutable version of ReactTodo
  */
 export default class ReactImmutableTodo extends Component {
-
   model: Model|MutableModel;
 
   props: Props;
@@ -31,7 +31,7 @@ export default class ReactImmutableTodo extends Component {
   };
 
   shouldComponentUpdate(nextProps:Props, nextState:State) {
-    if(nextProps.useMutableModel && nextProps.forceUpdate) {
+    if (nextProps.useMutableModel && nextProps.forceUpdate) {
       return true;
     }
 
@@ -48,10 +48,10 @@ export default class ReactImmutableTodo extends Component {
   }
 
   componentWillReceiveProps(nextProps:Props) {
-    if(nextProps.useMutableModel === this.props.useMutableModel) {
+    if (nextProps.useMutableModel === this.props.useMutableModel) {
       return;
     }
-    if(nextProps.useMutableModel) {
+    if (nextProps.useMutableModel) {
       this.model = new MutableModel();
     } else {
       this.model = new Model();
@@ -71,8 +71,8 @@ export default class ReactImmutableTodo extends Component {
     });
   };
 
-  onAddTodo = (e: Event) => {
-    const value = window.prompt('What do you want TODO?', '');
+  onAddTodo = () => {
+    const value = window.prompt('What do you want TODO?', ''); // eslint-disable-line
     if (value) {
       this.setState({
         todos: this.model.create(value)
@@ -80,13 +80,13 @@ export default class ReactImmutableTodo extends Component {
     }
   };
 
-  removeAllDone = (e: Event) => {
+  removeAllDone = () => {
     this.setState({
       todos: this.model.removeAllDone()
     });
   };
 
-  onSave = (e: Event) => {
+  onSave = () => {
     if (this.props.onSave) {
       this.props.onSave(this.state.todos);
     }

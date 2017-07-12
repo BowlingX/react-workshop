@@ -12,7 +12,7 @@ Composing will automatically add the generated `class` of the source to our `cla
 So it will look like this:
 
 ```html
-<button class="HoverButton__hoverBtn_2WHP Button__btn_3hJv">button</button>
+<button class="HoverButton__hoverBtn_2WHP Button__btn_3hJv">A Button</button>
 ```
 
-    <HoverButton/>
+    <HoverButton>A Button</HoverButton>

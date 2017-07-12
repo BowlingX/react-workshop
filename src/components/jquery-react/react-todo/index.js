@@ -3,22 +3,21 @@
  */
 
 import React, { Component } from 'react';
-import Model from '../../../jquery/model.js';
-import type { Todo } from '../../../jquery/model.js';
+import Model from '../../../jquery/model';
+import type { Todo } from '../../../jquery/model';
 
 type State = {
   todos: Array<Todo>
 };
 
 type Props = {
-  onSave?: (todos: Array<Todo>) => void
+  onSave: (todos: Array<Todo>) => void
 }
 
 /**
  * All-In-One TODO Application component
  */
 export default class ReactTodo extends Component {
-
   model: Model;
 
   props: Props;
@@ -36,7 +35,7 @@ export default class ReactTodo extends Component {
     };
   }
 
-  onRemoveTodo = (index: number) => (e: Event) => {
+  onRemoveTodo = (index: number) => () => {
     this.setState({
       todos: this.model.remove(index)
     });
@@ -49,8 +48,8 @@ export default class ReactTodo extends Component {
     });
   };
 
-  onAddTodo = (e: Event) => {
-    const value = window.prompt('What do you want TODO?', '');
+  onAddTodo = () => {
+    const value = window.prompt('What do you want TODO?', ''); // eslint-disable-line
     if (value) {
       this.setState({
         todos: this.model.create(value)
@@ -58,13 +57,13 @@ export default class ReactTodo extends Component {
     }
   };
 
-  removeAllDone = (e: Event) => {
+  removeAllDone = () => {
     this.setState({
       todos: this.model.removeAllDone()
     });
   };
 
-  onSave = (e: Event) => {
+  onSave = () => {
     if (this.props.onSave) {
       this.props.onSave(this.state.todos);
     }
@@ -73,9 +72,10 @@ export default class ReactTodo extends Component {
   renderTodo(todo: Todo, key: number) {
     return (
       <li key={todo.id}>
-        {/* this here will create a new function on each render, better separate the component or use an identifier on the target*/}
-        <input tabIndex="-1" onChange={this.onRemoveTodo(key)} type="checkbox" value={todo.done}/>
-        {!todo.done && <input tabIndex="1" onChange={this.onInputChange(key)} type="text" value={todo.name}/>}
+        {/* this here will create a new function on each render,
+        better separate the component or use an identifier on the target*/}
+        <input tabIndex="-1" onChange={this.onRemoveTodo(key)} type="checkbox" value={todo.done} />
+        {!todo.done && <input tabIndex="0" onChange={this.onInputChange(key)} type="text" value={todo.name} />}
         {todo.done && <span style={{ textDecoration: 'line-through' }}>{todo.name}</span>}
       </li>
     );

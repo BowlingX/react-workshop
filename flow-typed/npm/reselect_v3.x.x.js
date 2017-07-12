@@ -1,5 +1,5 @@
-// flow-typed signature: 0ea94935c8cd11282f9ee4ebc24c15b4
-// flow-typed version: 04b3e3bbd2/reselect_v3.x.x/flow_>=v0.37.x
+// flow-typed signature: 02bfed094f6a1743487520a72cbfc53d
+// flow-typed version: 617b8488ad/reselect_v3.x.x/flow_>=v0.37.x
 
 declare module 'reselect' {
   declare type Selector<TState, TProps, TResult> = {
@@ -42,7 +42,7 @@ declare module 'reselect' {
       arg15: T15,
       arg16: T16
     ) => TResult
-  ): Selector<TState, TProps, TResult>,
+  ): Selector<TState, TProps, TResult>;
   <TState, TProps, TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(
     selectors: [
       Selector<TState, TProps, T1>,
@@ -80,7 +80,7 @@ declare module 'reselect' {
       arg15: T15,
       arg16: T16
     ) => TResult
-  ): Selector<TState, TProps, TResult>,
+  ): Selector<TState, TProps, TResult>;
 
     <TState, TProps, TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(
       selector1: Selector<TState, TProps, T1>,

@@ -1,19 +1,18 @@
 import $ from 'jquery';
 import 'jquery-ui';
 import view from './view.hbs';
-import Model from './model.js';
+import Model from './model';
 
 /**
  * A (Horrible) example of a TODO-Application in simple jQuery
  */
 $.widget('bowlingx.todo', {
 
-  _create: function () {
-
+  _create() {
     // The Application Model
     this.model = new Model();
 
-    const getIndex = (item) => $(item).parents('[data-container]').index();
+    const getIndex = item => $(item).parents('[data-container]').index();
 
     /**
      * Method called when the value of the input field changes
@@ -26,7 +25,7 @@ $.widget('bowlingx.todo', {
      * Method called when the user requests to add a new item
      */
     this.onAddTodo = () => {
-      const value = window.prompt('What do you want TODO?', '');
+      const value = window.prompt('What do you want TODO?', ''); // eslint-disable-line
       if (value) {
         this.model.create(value);
         this.render();
@@ -60,10 +59,10 @@ $.widget('bowlingx.todo', {
     // render the model
     this.render();
   },
-  render: function () {
+  render() {
     $(this.element).html(view(this.model));
   },
-  _destroy: function () {
+  _destroy() {
     // unregister events, cleanup
     $(this.element).off();
   }

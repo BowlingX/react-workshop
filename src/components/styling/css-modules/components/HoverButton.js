@@ -4,9 +4,9 @@
 import React from 'react';
 import { hoverBtn } from './HoverButton.scss';
 
-const HoverButton = () => {
+const HoverButton = (props:Object) => {
   return (
-      <button className={hoverBtn}>Button</button>
+    <button className={hoverBtn} {...props} />
   );
 };
 

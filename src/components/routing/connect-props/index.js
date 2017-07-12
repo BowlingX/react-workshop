@@ -34,16 +34,16 @@ let SimpleComponent = (props: Props) => {
     <form onSubmit={handleSubmit}>
       <p>Please check</p>
       <Field name="checked" component="input" type="checkbox" />
-      <Field name="text" component="input" type="text"/>
+      <Field name="text" component="input" type="text" />
       <button type="submit">Submit</button>
     </form>
   );
 };
 
-const parameter = (name) => ({
+const parameter = name => ({
   // called during serialization
   toQueryString: (value: any) => {
-    return JSON.stringify(value)
+    return JSON.stringify(value);
   },
   // called initially before render
   fromQueryString: (value: any, props) => {
@@ -79,7 +79,7 @@ const ConnectProps = () => {
   return (
     <Provider store={store}>
       <QueryContainer history={history}>
-        <SimpleComponent/>
+        <SimpleComponent />
       </QueryContainer>
     </Provider>
   );

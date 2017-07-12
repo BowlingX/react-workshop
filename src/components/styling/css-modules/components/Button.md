@@ -1,4 +1,4 @@
 
 A simple yellow button.
 
-    <Button/>
+    <Button>A Button</Button>

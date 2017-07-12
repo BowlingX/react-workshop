@@ -4,9 +4,9 @@
 import React from 'react';
 import { btn } from './Button.scss';
 
-const Button = () => {
+const Button = (props:Object) => {
   return (
-      <button className={btn}>Button</button>
+    <button className={btn} {...props} />
   );
 };
 

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import $ from 'jquery';
-import '../../../jquery/app.js';
+import '../../../jquery/app';
 
 type Props = {
   onSave: Function
@@ -14,7 +14,6 @@ type Props = {
  * React-Component that renders our jQuery Widget
  */
 export default class JQueryTodo extends React.Component {
-
   element: HTMLElement;
 
   props: Props;
@@ -24,19 +23,20 @@ export default class JQueryTodo extends React.Component {
     const app = $(this.element).todo();
     app.bind('todosave', (event, model) => {
       this.props.onSave(model);
-    })
+    });
   }
 
   componentWillUnmount() {
     // $FlowFixMe: ignore
-    $(this.element).todo('destroy')
+    $(this.element).todo('destroy');
   }
 
   render() {
     return (
       <div ref={(element) => {
         this.element = element;
-      }}/>
+      }}
+      />
     );
   }
 }

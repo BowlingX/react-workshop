@@ -17,7 +17,6 @@ type Props = {
 }
 
 export default class ClassNames extends PureComponent {
-
   props:Props;
 
   state: State = {
@@ -28,16 +27,16 @@ export default class ClassNames extends PureComponent {
 
   onButtonClick = () => {
     let catched = this.state.catched;
-    if(this.state.isTransitioning) {
-      catched++;
+    if (this.state.isTransitioning) {
+      catched += 1;
     }
     this.setState({ shouldAnimate: !this.state.shouldAnimate, isTransitioning: true, catched });
   };
 
   onTransitionEnd = (e:Event) => {
     // see https://developer.mozilla.org/de/docs/Web/Events/transitionend
-    if(e.propertyName === 'transform' || e.propertyName === 'left') {
-      this.setState({ isTransitioning: false});
+    if (e.propertyName === 'transform' || e.propertyName === 'left') {
+      this.setState({ isTransitioning: false });
     }
   };
 
@@ -45,20 +44,21 @@ export default class ClassNames extends PureComponent {
     const { shouldAnimate, isTransitioning, catched } = this.state;
     return (
       <div>
-      <button
-        onClick={this.onButtonClick}
-        onTransitionEnd={this.onTransitionEnd}
-        className={
-          classNames(AnimatedButton, {
-            animate: shouldAnimate,
-            isTransitioning,
-            badTransition: this.props.enableBadTransition
-          })
-        }
-      >
-        {this.state.isTransitioning && 'catch me' || 'click me'}
-      </button>
-      <p>You catched the button {catched} time(s)</p>
+        <button
+          onClick={this.onButtonClick}
+          onTransitionEnd={this.onTransitionEnd}
+          className={
+            classNames(AnimatedButton, {
+              animate: shouldAnimate,
+              isTransitioning,
+              badTransition: this.props.enableBadTransition
+            })
+          }
+        >
+          {this.state.isTransitioning && 'catch me'}
+          {!this.state.isTransitioning && 'click me'}
+        </button>
+        <p>You catched the button {catched} time(s)</p>
       </div>
     );
   }

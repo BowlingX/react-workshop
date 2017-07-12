@@ -22,19 +22,19 @@ files.push(
   }
 );
 
-export default config => {
+export default (config) => {
   config.set({
     basePath: '',
     browserNoActivityTimeout: 50000,
     files,
     frameworks: ['jasmine-ajax', 'jasmine'],
     browsers: ['Chrome'],
-    preprocessors: {'./src/**/*.js': ['webpack']},
+    preprocessors: { './src/**/*.js': ['webpack'] },
     reporters: '--ci' in namedArgs ? ['spec', 'junit', 'coverage'] : ['spec'],
     coverageReporter: {
       dir: 'reports',
       reporters: [
-        {type: 'lcov', subdir: 'report-lcov'}
+        { type: 'lcov', subdir: 'report-lcov' }
       ]
     },
     webpack: require('./.storybook/webpack.config'),
