@@ -1,0 +1,11 @@
+:local(.TodoButton) {
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  border-radius: 3px;
+  padding: 5px;
+
+  &.primary {
+    background: navy;
+    color: white;
+  }
+}

@@ -75,7 +75,7 @@ SimpleComponent = connect((state) => {
   };
 })(SimpleComponent);
 
-const ConnectProps = () => {
+const ReactContextQuery = () => {
   return (
     <Provider store={store}>
       <QueryContainer history={history}>
@@ -85,4 +85,4 @@ const ConnectProps = () => {
   );
 };
 
-export default ConnectProps;
+export default ReactContextQuery;

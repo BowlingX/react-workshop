@@ -1,5 +1,5 @@
 module.exports = {
-  ignore: ['**/__stories__/**', '**/reducer/**', '**/container/**', '**/__tests__/**', '**/*.test.js', '**/*.test.jsx', '**/*.spec.js', '**/*.spec.jsx'],
+  ignore: ['**/__stories__/**', '**/reduxConfig/**', '**/container/**', '**/__tests__/**', '**/*.test.js', '**/*.test.jsx', '**/*.spec.js', '**/*.spec.jsx'],
   webpackConfig: require('./.storybook/webpack.config.js'),
   sections: [
     {
@@ -31,7 +31,7 @@ module.exports = {
       content: 'src/components/redux/Readme.md'
     },
     {
-      name: 'Routing',
+      name: 'Advanced',
       components: 'src/components/routing/**/index.js'
     }
   ]
