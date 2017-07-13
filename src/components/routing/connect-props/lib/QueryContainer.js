@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 type QueryContainerProps = {
   history: Object,
@@ -43,7 +44,7 @@ export default class QueryContainer extends Component {
         if (this.components[key]) {
           Object.keys(location.state.componentState[key]).forEach((propKey) => {
             const oldValue = location.state.componentState[key][propKey];
-            if (oldValue === undefined || oldValue !== this.components[key].state[propKey]) {
+            if (oldValue === undefined || (!shallowEqual(oldValue, this.components[key].state[propKey]))) {
               this.components[key].options[propKey].fromHistory(
                 oldValue, this.components[key].props);
               // mutate current state with old value,
@@ -115,6 +116,7 @@ export default class QueryContainer extends Component {
             } : {};
           })((state, key) => key);
           const initialState = {};
+          const serialized = {};
           const state = Object.keys(options).reduce((initial, key) => {
             const initialQueryValue = this.initialParsedQuery()[`${namespace}.${key}`];
             if (props[key] !== undefined) {
@@ -123,12 +125,13 @@ export default class QueryContainer extends Component {
             if (initialQueryValue !== undefined) {
               const value = options[key].fromQueryString(initialQueryValue, props);
               initialState[key] = value;
+              serialized[`${namespace}.${key}`] = initialQueryValue;
               return { ...initial, [key]: value };
             }
             return initial;
           }, props);
 
-          this.components[namespace] = { options, props, optionsSelector, state: initialState };
+          this.components[namespace] = { options, props, optionsSelector, state: initialState, serialized };
           return state;
         },
         unregister: (namespace:string) => {
