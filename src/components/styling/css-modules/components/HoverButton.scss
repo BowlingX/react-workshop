@@ -1,5 +1,10 @@
+:local(.somethingElse) {
+  box-shadow: 1px 1px black;
+}
+
 :local(.hoverBtn) {
   composes: btn from './Button.scss';
+  composes: somethingElse;
   &:hover {
     background: blue;
     color: #fff;

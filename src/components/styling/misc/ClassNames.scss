@@ -2,7 +2,7 @@
   background: black;
   color: #fff;
   transition: 1s transform cubic-bezier(0.915, -0.285, 0.110, 1.650), 1s background ease, 1s color ease;
-
+  will-change: transform, color, background;
   width: 300px;
   text-align:center;
 
@@ -23,5 +23,9 @@
     &.badTransition {
       left: 200px;
     }
+  }
+
+  &.isToggled {
+    background:red;
   }
 }
